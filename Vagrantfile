@@ -1,6 +1,7 @@
 Vagrant.configure("2") do |config|
   ## Choose your base box
-  config.vm.box = "osx-yosemite"
+  ##config.vm.box = "osx-yosemite"
+  config.vm.box = "precise64"
 
   ## For masterless, mount your salt file root
   config.vm.synced_folder "salt/roots/", "/srv/salt/"
