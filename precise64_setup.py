@@ -2,14 +2,14 @@
 import subprocess
 
 def _bootstrap_salt():
-    subprocess.call(["sudo", "apt-get", "install", "salt"])
+    subprocess.call(["mkdir", "/srv"])
+    subprocess.call(["cp", "bootstrap/files/srv/*", "/srv/"])
 
 def bootstrap():
     _bootstrap_salt()
 
 def Main():
-    #bootstrap()
-    print "Hello"
+    bootstrap()
 
 if __name__ == "__main__":
     Main()

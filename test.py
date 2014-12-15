@@ -1,3 +1,4 @@
+#!bootstrap/devsetup/bin/python
 import vagrant
 
 # pull down vbox image
