@@ -1,0 +1,9 @@
+#
+# SSH
+#
+# comm with guest osx instance is via port forwarding
+# port forward via virtualbox localhost port 2222 => 10.0.2.15 port 22
+# then from the host os: ssh -p 2222 testsungevity@localhost
+# profit!
+
+
