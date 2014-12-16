@@ -126,7 +126,7 @@ function setup_salt {
 }
 
 function masterless_minion {
-    echo "file_client: local" > /etc/salt/minion
+    cp $BOOTSTRAP_DIR/../salt/minion /etc/salt/minion
 }    
 
 function main {
