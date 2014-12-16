@@ -3,7 +3,12 @@
 # stop on failed command
 set -e
 
+BOOTSTRAP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 GITURL=https://github.com/saltstack/salt
+
+XCODE_CMDLINE_TOOLS="$BOOTSTRAP_DIR/commandlinetoolsosx10.10forxcode6.1.1.dmg"
+XCODE_CMDLINE_TOOLS_DOWNLOAD_URL="https://developer.apple.com/downloads/download.action?path=Developer_Tools/command_line_tools_os_x_10.9_for_xcode__xcode_6.1.1/commandlinetoolsosx10.9forxcode6.1.1.dmg"
+
 PIP=/usr/local/bin/pip
 
 usage()
@@ -67,10 +72,17 @@ if [ "$VERSION" == "git" ]; then
 fi
 
 function install_cltools {
-    hdiutil mount './commandlinetoolsosx10.10forxcode6.1.1.dmg'
-    volume="/Volumes/Command Line Developer Tools"
-    installer -pkg "$volume/Command Line Tools (OS X 10.10).pkg" -target /
-    hdiutil detach "$volume"
+    if [ ! -f "$XCODE_CMDLINE_TOOLS" ]
+    then
+       echo "You are missing the xcode command-line tools.  You can download it by logging into developer.apple.com"
+       echo "then hitting the following URL: $XCODE_CMDLINE_TOOLS_DOWNLOAD_URL"
+       exit 1
+    else
+      hdiutil mount "$XCODE_CMDLINE_TOOLS"
+      volume="/Volumes/Command Line Developer Tools"
+      installer -pkg "$volume/Command Line Tools (OS X 10.10).pkg" -target /
+      hdiutil detach "$volume"
+    fi
 }
 
 function install_homebrew {
@@ -95,6 +107,7 @@ function install_dependencies {
     $BREW install swig
     $BREW install zmq
     $BREW install python
+    pip install -r $BOOTSTRAP_DIR/requirements.txt
 }
 
 function setup_salt {
