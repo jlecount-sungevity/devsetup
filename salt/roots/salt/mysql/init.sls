@@ -1,10 +1,13 @@
-mysql-server:
+mysql:
     pkg:
         - installed
 
 mysql:
     service:
         - running
+    host: 'localhost'
+    user: 'whoami'
+
     require:
         - pkg.installed: mysql-server
     watch:

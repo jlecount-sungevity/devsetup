@@ -1,2 +1,3 @@
 include:
   - vim
+  - files

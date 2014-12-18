@@ -129,6 +129,26 @@ function masterless_minion {
     cp $BOOTSTRAP_DIR/../salt/minion /etc/salt/minion
 }    
 
+### to be ported to salt, but installs rest of dev apps ###
+function setup_mysql {
+    BREW=/usr/local/bin/brew
+    $BREW install mysql
+    unset TMPDIR
+    mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+    mysql.server start
+    mysql_secure_installation
+
+    # and ant...
+    $BREW install ant
+}
+
+function python_w_pyenv {
+    brew install pyenv
+    pyenv install 2.7.9
+    pyenv global 2.7.9
+}
+###  end to be ported to salt ###
+
 function main {
     install_cltools
     install_homebrew
